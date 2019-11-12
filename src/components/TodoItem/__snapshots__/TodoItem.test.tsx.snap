@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TodoItem /> matches snapshot 1`] = `
+<div>
+  <li
+    class="todo-item"
+  >
+    <input
+      class="input "
+      readonly=""
+      type="checkbox"
+    />
+    <span
+      class="text"
+    >
+      Something 1
+    </span>
+    <span
+      class="remove"
+    >
+      X
+    </span>
+  </li>
+</div>
+`;

@@ -1,0 +1,51 @@
+@import 'utils';
+
+.todo-input {
+    display: flex;
+    border-top: 1px solid $oc-gray-3;
+    border-bottom: 2px solid $oc-gray-3;
+    padding: 1rem;
+
+    .input {
+        flex: 1;
+        border: none;
+        border-bottom: 1px solid $oc-gray-3;
+        outline: none;
+        font-size: 1.25rem;
+
+        &:focus {
+            transition: all 0.25s ease-in;
+            border-bottom: 1px solid $oc-cyan-6;
+        }
+
+        &::placeholder {
+            color: $oc-gray-5;
+            font-style: italic;
+        }
+    }
+
+    .button {
+        width: 5rem;
+        height: 3rem;
+
+        margin-left: 1rem;
+
+        background: $oc-cyan-6;
+        color: white;
+        font-size: 1.25rem;
+        border: none;
+        outline: none;
+        border-radius: 0.5rem;
+
+        cursor: pointer;
+
+        &:hover {
+            transition: all 0.25s ease-in;
+            background: $oc-cyan-4;
+        }
+
+        &:active {
+            background: $oc-cyan-9;
+        }
+    }
+}

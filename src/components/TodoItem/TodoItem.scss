@@ -1,0 +1,48 @@
+@import 'utils';
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+
+    .input {
+        margin-right: 1rem;
+    }
+
+    .text {
+        flex: 1;
+        font-family: 'Sunflower', sans-serif;
+        font-size: 1rem;
+        font-weight: 300;
+        letter-spacing: 0.2rem;
+
+        word-break: break-all;
+
+        cursor: pointer;
+
+        &.done {
+            text-decoration: line-through;
+        }
+    }
+
+    .remove {
+        cursor: pointer;
+        color: $oc-red-6;
+
+        &:hover {
+            color: $oc-red-4;
+        }
+
+        &:active {
+            color: $oc-red-9;
+        }
+    }
+
+    &:nth-child(odd) {
+        background: $oc-gray-1;
+    }
+
+    & + & {
+        border-top: 1px solid $oc-gray-3;
+    }
+}

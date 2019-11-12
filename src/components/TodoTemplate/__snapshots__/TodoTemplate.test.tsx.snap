@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TodoTemplate /> matches snapshot 1`] = `
+<div>
+  <div
+    class="page-template"
+  >
+    <h2
+      class="title"
+    >
+      TODO LIST
+    </h2>
+    <div
+      class="content"
+    />
+  </div>
+</div>
+`;
