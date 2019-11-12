@@ -1,44 +1,71 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React-typesafe-actions
 
-## Available Scripts
+## **1.creeateAction으로 액션 생성 함수 선언**
 
-In the project directory, you can run:
+`v4.X`은 _createStandardAction_ 사용, `v5.X`부터는 createStandardAction가 deprecated 되어 *createAction*을 사용
 
-### `yarn start`
+createAction(`type`, `payload`, `meta`)()
+payload, meta는 없는 경우 생략이 가능하며, 선언 후 ()로 바로 실행해주어야 함.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<br>
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+📎 actions.ts
 
-### `yarn test`
+```tsx
+import { createAction, deprecated } from 'typesafe-actions';
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+export const ADD_TODO = 'todos/ADD_TODO';
+export const TOGGLE_TODO = 'todos/TOGGLE_TODO';
 
-### `yarn build`
+export const addTodo = createAction(ADD_TODO, (text: string) => text)();
+export const toggleTodo = createAction(TOGGLE_TODO, (id: number) => id)();
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br>
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## 2. **ActionType으로 액션들의 타입 선언**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+기존의 ReturnType`<typeof addTodo>` | ... 에서 아래와 같이 간결하게 작성할 수 있음.
 
-### `yarn eject`
+<br>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+📎 types.ts
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```tsx
+import { ActionType } from 'types-actions';
+import { addTodo, toggleTodo } from './actions';
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+const actions = { addTodo, toggleTodo };
+export type TodosActionType = ActionType<typeof actions>;
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<br>
 
-## Learn More
+## **3. createReducer로 reducer 생성**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<br>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+📎 reducer.ts
+
+```tsx
+import { createReducer } from 'typesafe-actions';
+import { TodosStateType, TodosActionTypes } from './types';
+import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO } from './types';
+
+// Object Map Style
+export default createReducer<TodosStateType, TodosActionTypes>(initialState, {
+    [ADD_TODO]: (state, action) => {...생략}
+})
+
+// Chain API Style
+export default createReducer<TodosStateType, TodosActionType>(initialState)
+    .handleAction(ADD_TODO, (state, action) => {...생략})
+```
+
+<br>
+
+# 결론
+
+1. redux-actions의 createAction, handleActions와 같은 형식으로 작성할 수 있어서 익숙함.
+2. ActionType을 통해 타입을 간결하게 선언할 수 있음.
+3. actions, types, reducer를 분리하여 작성하는게 더 편해짐.
