@@ -64,6 +64,23 @@ export default createReducer<TodosStateType, TodosActionType>(initialState)
 
 <br>
 
+## 4. **createAsyncAction 으로 비동기 액선들의 타입 선언**
+
+📎 actions.ts
+
+```tsx
+import { createAsyncAction } from 'typesafe-actions';
+
+export const getTodos = createAsyncAction(
+    'todos/GET_TODOS_REQUEST',
+    'todos/GET_TODOS_SUCCESS',
+    'todos/GET_TODOS_FAILURE',
+)<void, void, void> // 순서대로 Request, Success, Failure에 전달될 payload의 타입
+```
+
+타입을 일일이 적어주는 건 똑같지만 redux-saga를 사용할 때 getTodos만 불러와서 `getTodos.request`, `getTodos.success`, `getTodos.failure`로 접근할 수 있음.
+또한, **todos/GET_TODOS만 입럭하면 REQUEST, SUCCESS, FAILURE를 붙여주는 함수를 만들어서 더 간결하게 작성할 수 있을 것 같음.**
+
 # 결론
 
 1. redux-actions의 createAction, handleActions와 같은 형식으로 작성할 수 있어서 익숙함.
