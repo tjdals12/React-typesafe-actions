@@ -75,7 +75,7 @@ export const getTodos = createAsyncAction(
     'todos/GET_TODOS_REQUEST',
     'todos/GET_TODOS_SUCCESS',
     'todos/GET_TODOS_FAILURE',
-)<void, void, void> // 순서대로 Request, Success, Failure에 전달될 payload의 타입
+)<void, void, void>() // 순서대로 Request, Success, Failure에 전달될 payload의 타입
 ```
 
 타입을 일일이 적어주는 건 똑같지만 redux-saga를 사용할 때 getTodos만 불러와서 `getTodos.request`, `getTodos.success`, `getTodos.failure`로 접근할 수 있음.
